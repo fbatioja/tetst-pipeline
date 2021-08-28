@@ -13,6 +13,8 @@ db.init_app(app)
 db.create_all()
 cors = CORS(app)
 
+
+
 api = Api(app)
 api.add_resource(VistaCanciones, '/canciones')
 api.add_resource(VistaCancion, '/cancion/<int:id_cancion>')
