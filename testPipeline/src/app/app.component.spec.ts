@@ -31,6 +31,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('testPipeline app is running!');
-    expect('3').toEqual('4');
+    expect('3').toEqual('5');
   });
 });
