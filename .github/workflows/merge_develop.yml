@@ -12,7 +12,7 @@ on:
       - unlocked
     branches: [ develop ]
 jobs:
-  frontent-tests:
+  frontentTests:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
     defaults:
