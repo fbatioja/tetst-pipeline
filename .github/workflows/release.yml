@@ -1,17 +1,19 @@
-name: Merge develop
+name: Release
 on:
-  pull_request:
-    types:
-      - labeled
-      - unlabeled
-      - synchronize
-      - opened
-      - edited
-      - ready_for_review
-      - reopened
-      - unlocked
-    branches: [ master ]
+  workflow_dispatch:
+
 jobs:
+  create_release:
+    name: Create branch
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: Create relese
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: 'release'
   frontent-tests:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
@@ -60,3 +62,21 @@ jobs:
         run: |
           coverage run -m unittest discover -s tests -v
           coverage report -m
+
+  merge-branch:
+    runs-on: ubuntu-latest
+    needs: [frontent-tests, backend-tests]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: release
+      - uses: everlytic/branch-merge@1.1.0
+        with:
+          github_token: ${{ github.token }}
+          source_ref: 'release'
+          target_branch: 'main'
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+      - uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: release
