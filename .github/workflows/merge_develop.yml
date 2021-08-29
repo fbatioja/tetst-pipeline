@@ -14,6 +14,7 @@ on:
       - develop
 jobs:
   test_frontend:
+    name: Pruebas del frontend
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,3 +34,24 @@ jobs:
         run: npm ci
       - name: Ejecutar pruebas
         run: npm run test
+        
+  backend-tests:
+    name: Pruebas del backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./flaskr/
+
+    steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+      - name: Configuracion de entorno de python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Instalación de librerías y dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Ejecutar pruebas
+        run: python -m unittest discover -s tests -v
