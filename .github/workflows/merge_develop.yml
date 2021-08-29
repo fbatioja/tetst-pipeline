@@ -10,7 +10,8 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-    branches: [ develop ]
+    branches: 
+      - develop
 jobs:
   test_frontend:
     runs-on: ubuntu-latest
