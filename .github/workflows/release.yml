@@ -4,19 +4,20 @@ on:
 
 jobs:
   create_release:
-    name: Create branch
+    name: Crear rama release
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
     steps:
-      - name: Create relese
+      - name: Verificar rama release
+        if: github.ref == 'refs/heads/release'
+        run: echo "La rama release ya existe"
+      - name: Crear rama relese
+        if: github.ref == 'refs/heads/develop'
         uses: peterjgrainger/action-create-branch@v2.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: 'release'
-        if: github.ref == 'refs/heads/develop'
-      - run: echo 'Ya existe la rama release'
-      
+
   frontend_tests:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
