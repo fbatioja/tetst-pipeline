@@ -6,7 +6,7 @@ jobs:
   create_release:
     name: Create branch
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' && github.ref != 'refs/heads/release'
+    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Create relese
         uses: peterjgrainger/action-create-branch@v2.0.1
