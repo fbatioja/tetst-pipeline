@@ -10,9 +10,9 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-    branches: [ develop ]
+    branches: [ master ]
 jobs:
-  frontent-tests:
+  build:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
     defaults:
