@@ -18,7 +18,7 @@ on:
       - release
 
 jobs:
-  test_frontend:
+  frontend_test:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
     defaults:
