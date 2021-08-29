@@ -16,7 +16,7 @@ cors = CORS(app)
 api = Api(app)
 api.add_resource(VistaCanciones, '/canciones')
 api.add_resource(VistaCancion, '/cancion/<int:id_cancion>')
-api.add_resource(VistaAlbumesCanciones, '/cancion/<int:id_cancion>/albumes')
+api.add_resource(VistaAlbumesCanciones, '/cancion/<int:id_cancion>/albume')
 
 
 jwt = JWTManager(app)
