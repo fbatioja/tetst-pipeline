@@ -1,0 +1,64 @@
+name: Release
+on:
+  workflow_dispatch:
+
+jobs:
+  test_frontend:
+    name: Pruebas del frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./front-end/tutorial-canciones
+
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Usar Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar pruebas
+        run: npm run test
+        
+  backend-tests:
+    name: Pruebas del backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./flaskr/
+
+    steps:
+      - name: Checkout de repositorio
+        uses: actions/checkout@v2
+      - name: Configuracion de entorno de python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Instalación de librerías y dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Ejecutar pruebas
+        run: python -m unittest discover -s tests -v
+  merge-branch:
+      runs-on: ubuntu-latest
+      needs: [test_frontend, backend-tests]
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            ref: release
+        - uses: everlytic/branch-merge@1.1.0
+          with:
+            github_token: ${{ github.token }}
+            source_ref: 'release'
+            target_branch: 'main'
+            commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+        - uses: dawidd6/action-delete-branch@v3
+          with:
+            github_token: ${{github.token}}
+            branches: release
