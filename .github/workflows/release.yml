@@ -6,7 +6,7 @@ jobs:
   create_release:
     name: Create branch
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop' && github.ref != 'refs/heads/release'
     steps:
       - name: Create relese
         uses: peterjgrainger/action-create-branch@v2.0.1
@@ -67,7 +67,7 @@ jobs:
           with:
             github_token: ${{ github.token }}
             source_ref: 'release'
-            target_branch: 'main'
+            target_branch: 'master'
             commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
         - uses: dawidd6/action-delete-branch@v3
           with:
