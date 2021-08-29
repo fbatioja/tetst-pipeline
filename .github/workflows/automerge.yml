@@ -4,7 +4,7 @@ jobs:
   check_pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: taichi/approved-event-action@v1.2.1
+    - uses: taichi/approved-event-action@v1.2.6
       id: approved
       with:
         approvals: '1'
