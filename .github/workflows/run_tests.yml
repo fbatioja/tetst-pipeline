@@ -1,5 +1,7 @@
 name: Tests
 on:
+  workflow_dispatch:
+  
   pull_request:
     types:
       - labeled
@@ -13,6 +15,8 @@ on:
     branches:
       - master
       - develop
+      - release
+
 jobs:
   test_frontend:
     name: Pruebas del frontend
