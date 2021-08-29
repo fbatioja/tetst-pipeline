@@ -3,6 +3,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  create_release:
+    name: Create branch
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: Create relese
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: 'release'
   test_frontend:
     name: Pruebas del frontend
     runs-on: ubuntu-latest
@@ -47,7 +58,7 @@ jobs:
         run: python -m unittest discover -s tests -v
   merge-branch:
       runs-on: ubuntu-latest
-      needs: [test_frontend, backend-tests]
+      needs: pruebas
       steps:
         - uses: actions/checkout@v2
           with:
