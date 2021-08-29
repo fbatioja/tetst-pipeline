@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./testPipeline
+        working-directory: ./front-end/tutorial-canciones
 
     strategy:
       matrix:
