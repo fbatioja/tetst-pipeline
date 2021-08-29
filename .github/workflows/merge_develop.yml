@@ -12,7 +12,7 @@ on:
       - unlocked
     branches: [ master ]
 jobs:
-  build:
+  test_frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
