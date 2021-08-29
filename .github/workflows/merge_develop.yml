@@ -1,4 +1,4 @@
-name: Merge develop
+name: Tests
 on:
   pull_request:
     types:
@@ -10,7 +10,8 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-    branches: 
+    branches:
+      - master
       - develop
 jobs:
   test_frontend:
