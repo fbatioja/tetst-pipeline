@@ -43,9 +43,6 @@ jobs:
   backend-tests:
     name: Pruebas del backend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./flaskr/
 
     steps:
       - name: Checkout de repositorio
@@ -57,6 +54,6 @@ jobs:
       - name: Instalación de librerías y dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r flaskr/requirements.txt
       - name: Ejecutar pruebas
-        run: python -m unittest discover -s tests -v
+        run: python -m unittest discover -s flaskr/tests -v
